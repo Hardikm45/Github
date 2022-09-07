@@ -1,3 +1,4 @@
+//Test Functions
 Image gallery :- Fancybox js
 Wordpress Contact Form 7 - Safest version 5.3.2(cf7 redirect issue solved this version)
 Acceptance 
