@@ -272,14 +272,13 @@ the_title( '<h1><a href="' . get_permalink() . '" title="' . the_title_attribute
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-/* ajax live search for post title */
-
-(search label file)button per onclick=”fetch()”
-<label>Search </label>
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Ajax live search for post title -->
+(search label file)button per onclick="fetch()"
+<label>Search :- </label>
 <input type="text" name="keyword" id="keyword" onkeyup="fetch()"></input>
 <div id="datafetch">Search results will appear here</div>
-
- (function file)
+<?php
 //search filter -> add the ajax fetch js
 add_action( 'wp_footer', 'ajax_fetch' );
 function ajax_fetch() {
@@ -298,26 +297,30 @@ function fetch(){
 </script>
 <?php
 }
-// Search filter->the ajax function
+
+// Search filter->the ajax Function
 add_action('wp_ajax_data_fetch' , 'data_fetch');
 add_action('wp_ajax_nopriv_data_fetch','data_fetch');
 function data_fetch(){
-
-    $the_query = new WP_Query( array( 'posts_per_page' => -1, 's' => esc_attr( $_POST['keyword'] ), 'post_type' => 'service' ) );
+    $the_query = new WP_Query( 
+        array( 
+            'posts_per_page' => -1, 
+            's' => esc_attr( $_POST['keyword'] ), 
+            'post_type' => 'service' 
+        ) );
     if(!empty($_POST['keyword']) && $the_query->have_posts() ) :
         while( $the_query->have_posts() ): $the_query->the_post(); ?>
-            
             <h2><a href="<?php echo esc_url( post_permalink() ); ?>"><?php the_title();?></a></h2>
-
         <?php endwhile;
-
         wp_reset_postdata();  
     endif;
-
     die();
-}
+}?>
+<!-- 😀 Ajax live search for post title -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
-<!-- contactform7 multiple validation message disable jquery -->
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Contact form 7 multiple validation message disable jquery -->
 <script type="text/javascript">
   var disableSubmit = false;
   jQuery('input.wpcf7-submit[type="submit"]').click(function() {
@@ -336,95 +339,37 @@ if(wpcf7Elm){
     }, false );
 }
 </script>
+<!-- 😀 Contact form 7 multiple validation message disable jquery -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
-/* make an equal height all div jquery */
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Equal height all div jquery -->
+<script type="text/javascript">
 var maxHeight = 0;
 $("divsamename1").each(function(){
    if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
 });
 $("divsamename1").height(maxHeight);
+</script>
+<!-- 😀 Archive Post custom template -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-
-
-
-/*------------------ Create Custom Post Type for Project-Type --------------------*/
-
-add_action( 'init', 'create_post_type_project_type' );
-function create_post_type_project_type() {
-register_post_type( 'project-type',
-array(
-'labels' => array(
-'name' => _x(
- 'Project Type', 'taxonomy general name' ),
-'singular_name' => _x(
- 'Project Type', 'taxonomy singular name' ),
-'search_items' => __( 'Search Project Type' ),
-'all_items' => __( 'All Project Types' ),
-'edit_item' => __( 'Edit Project Type' ),
-'update_item' => __( 'Update Project Type' ),
-'add_new_item' => __( 'Add New Project Type' ),
-'new_item_name' => __( 'New Project Type' ),
-'menu_name' => __( 'Project Types' )
-),
-'public' => true,
-'has_archive' => true,
-'publicly_queryable' => true,
-'menu_icon' => 'dashicons-portfolio',
-'supports' => array( 'title', 'thumbnail','editor')
-)
-);
-}
-
-add_action( 'init', 'create_project_type_hierarchical_taxonomy', 0 );
-
-function create_project_type_hierarchical_taxonomy() {
-
-$labels = array(
-'name' => _x(
- 'Project Type Category', 'taxonomy general name' ),
-'singular_name' => _x(
- 'Project Type Category', 'taxonomy singular name' ),
-'search_items' => __( 'Search Project Type Category' ),
-'all_items' => __( 'All Project Type Category' ),
-'parent_item' => __( 'Parent Project Type Category' ),
-'parent_item_colon' => __( 'Parent Project Type Category:' ),
-'edit_item' => __( 'Edit Project Type Category' ),
-'update_item' => __( 'Update Project Type Category' ),
-'add_new_item' => __( 'Add New Category' ),
-'new_item_name' => __( 'New Category Name' ),
-'menu_name' => __( 'Category' ),
-);
-
-// Now register the taxonomy
-
-register_taxonomy('project-typecategory',array('project-type'), array(
-'hierarchical' => true,
-'labels' => $labels,
-'show_ui' => true,
-'show_admin_column' => true,
-'query_var' => true,
-'rewrite' => array( 'slug' => 'project-type-category' ),
-));
-
-
-/* CF7 Validation */
-
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Contact Form 7 jQuery Validation -->
+<?php
 add_action('wp_footer', 'function_name');
-
-
-Script validate:-
+?>
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js?ver=5.8.3' id='sage/jquery.validate.min.js-js'></script>
 
-Cf7 form admin :----> 
+<!-- Cf7 form submit button :----> 
 <button class="wpcf7-form-control wpcf7-submit" type="button" id="form_submit">Submit</button>
 [submit id:contact_form_submit class:d-none "Submit"]
 
-Script :-> 
-// [START] Service page : Form Validation
+<!-- Simple get page id through Script --> 
+<script type="text/javascript">
 jQuery(document).ready(function () {
-
-    // [START] email_extend
     jQuery.validator.addMethod(
         "email_extend",
         function (value, element) {
@@ -436,9 +381,6 @@ jQuery(document).ready(function () {
         },
         "Email are not valid email address"
     );
-    // [END] email_extend
-
-    // [START] Alphabets Only
     jQuery.validator.addMethod(
         "lettersonly",
         function (value, element) {
@@ -446,7 +388,6 @@ jQuery(document).ready(function () {
         },
         "Only alphabets are allowed"
     );
-    // [END] Alphabets Only
     var page_id = '<?php echo get_the_ID(); ?>';
     jQuery("#wpcf7-f1473-p"+page_id+"-o1 form").validate({
         normalizer: function (value) {
@@ -498,7 +439,6 @@ jQuery(document).ready(function () {
         errorElement: 'span',
         errorClass: 'wpcf7-not-valid-tip'
     });
-
     jQuery('#form1_submit').on('click', function () {
         var form = jQuery('#wpcf7-f1473-p'+page_id+'-o1 form');
         if (!form.valid()) {
@@ -507,11 +447,11 @@ jQuery(document).ready(function () {
             jQuery('#wpcf7-f1473-p'+page_id+'-o1 input[type="submit"]').trigger('click');
         }
     });
-
 });
-// [END] Service page : Form Validation
+</script>
 
-//formid
+<!-- Simple get Formid through Script --> 
+<script type="text/javascript">
 var formID = jQuery(' .wpcf7').attr("id");
   // console.log('#'+formID+' '+'form');
   jQuery('#'+formID+' '+'form').validate({
@@ -551,11 +491,10 @@ var formID = jQuery(' .wpcf7').attr("id");
           jQuery('#'+formID+' '+'input[type="submit"]').trigger('click');
       }
   });
+</script>
 
-//One Page multiple form each function is used
-
+<!-- One Page multiple form each function is used --> 
 <script>
-// [START] Service page : Form Validation
 jQuery(document).ready(function () {
     // [START] email_extend
     jQuery.validator.addMethod(
@@ -569,9 +508,6 @@ jQuery(document).ready(function () {
         },
         "Email are not valid email address"
     );
-    // [END] email_extend
-
-    // [START] Alphabets Only
     jQuery.validator.addMethod(
         "lettersonly",
         function (value, element) {
@@ -579,7 +515,6 @@ jQuery(document).ready(function () {
         },
         "Only alphabets are allowed"
     );
-
     jQuery( ".wpcf7" ).each(function() {
         var formID = jQuery(this).attr("id");
         jQuery('#'+formID+' '+'form').validate({
@@ -623,7 +558,6 @@ jQuery(document).ready(function () {
             errorClass : 'wpcf7-not-valid-tip'
         });
     });
-
     jQuery(document).on('click', '#57_form_submit', function(){
         var formID = jQuery(this).closest('form').parent().attr("id");
         var form = jQuery('#'+formID+' '+'form');
@@ -635,9 +569,9 @@ jQuery(document).ready(function () {
     });
     
 });
-// [END] Service page : Form Validation
 </script>
-
+<!-- 😀 Contact Form 7 jQuery Validation -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
 
