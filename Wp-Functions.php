@@ -1,7 +1,13 @@
-//Test Functions
+/************/
+Test Functions
+/************/
+<style type="text/css">
+.title{
+    font-size: 15px;
+}
+</style>
 
 main content
-/////////////////////////
 Image gallery :- Fancybox js
 Wordpress Contact Form 7 - Safest version 5.3.2(cf7 redirect issue solved this version)
 Acceptance 
@@ -31,7 +37,7 @@ RewriteRule ^(.*) http://adelaidehillsskiphire.com.au/$1  [QSA,L,R=301]
 
 
 
-/*shortcode*/
+<div class="title">Shortcode</div>/*shortcode*/
 
 function movie_shortcode(){
 
