@@ -186,9 +186,13 @@ function add_my_post_types_to_query( $query ) {
 <!-- 😀 Custom Post Type -->
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
-1.	/* load More Post with ajax post and cpt */(Custom Template)
 
-<?php 
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 load More Post with ajax post and cpt -->
+
+<!-- 😀 Step - 1 -->
+<?php
+/*Custom Template*/
 $args = array(
     'post_type' => 'service',
     'paged' => 1,
@@ -196,23 +200,20 @@ $args = array(
 $the_query = new WP_Query( $args ); ?>
 <div id="posts">
 <?php if ( $the_query->have_posts() ) : ?>
- 
     <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
         <h2><li><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></li></h2>
         <?php the_excerpt(__('(more…)')); ?>
     <?php endwhile; ?>
-   
     <?php wp_reset_postdata(); ?>
- 
 <?php else : ?>
     <p><?php echo( 'Sorry, no posts matched your criteria.' ); ?></p>
 <?php endif; ?>
 </div>
 <button id="load_more" style="margin-bottom: 50px; margin-top: 30px;" >Load More</button>
 
-1.2 /* load More Post with ajax post and cpt */ (Function.php)
-
-
+<!-- 😀 Step - 2 -->
+<?php 
+/*Function.php*/
 //loadmore button
 add_action( 'wp_footer', 'my_action_javascript' ); 
 function my_action_javascript() { ?>
@@ -251,23 +252,25 @@ add_action( 'wp_ajax_my_action', 'my_action' );
 			    <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
 			<?php endif; 
 	wp_die(); 
-}
+}?>
+<!-- 😀 load More Post with ajax post and cpt -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
-/* Archive Post custom template */
 
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Archive Post custom template -->
 <?php 
 $loop = new WP_Query( array( 'post_type' => 'service', 'posts_per_page' => 10 ) ); 
-
 while ( $loop->have_posts() ) : $loop->the_post();
-
 the_title( '<h1><a href="' . get_permalink() . '" title="' . the_title_attribute( 'echo=0' ) . '" rel="bookmark">', '</a></h1>' ); 
 ?>
-
     <div class="entry-content">
         <?php the_content(); ?>
     </div>
-
 <?php endwhile; ?>
+<!-- 😀 Archive Post custom template -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
+
 
 /* ajax live search for post title */
 
