@@ -2,17 +2,11 @@
 Test Functions
 /************/
 
-main content
 Image gallery :- Fancybox js
-Wordpress Contact Form 7 - Safest version 5.3.2(cf7 redirect issue solved this version)
-Acceptance 
-Get post category by id : - <?php echo get_the_category($id)[0]->name ?>
-WP RollBack - any plugin downgrade.
-Radiobutton section show hide :- get_field('footer_section_showhide',get_queried_object_id()) == "yes"
-Phone no.acf filed :- <?php echo str_replace(" ", "", $phone); ?>
+Wordpress Contact Form 7 - Safest version 5.3.2(cf7 redirect issue solved this version) 
 
-Htaccess redirect
 
+<!-- 😀 Htaccess redirect -->
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
@@ -29,11 +23,12 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^www.adelaidehillsskiphire.com.au$
 RewriteRule ^(.*) http://adelaidehillsskiphire.com.au/$1  [QSA,L,R=301]
 </IfModule>
+<!-- 😀 Htaccess redirect -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-
-/*shortcode*/
-
+<!-- 😀 Shortcode -->
+<?php 
 function movie_shortcode(){
 
 	$result="";
@@ -63,24 +58,26 @@ function movie_shortcode(){
     return $result;            
 }
 
-add_shortcode('movies','movie_shortcode');
+add_shortcode('movies','movie_shortcode'); ?>
+<!-- 😀 Shortcode -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-/* create custom post meta */
-
-  add_action( 'add_meta_boxes', 'create_metabox' );
-  function create_metabox(){
-add_meta_box('hero','Hero Name','meta_box_html','movies');
+<!-- 😀 Create Custom Post Meta -->
+<?php 
+add_action( 'add_meta_boxes', 'create_metabox' );
+function create_metabox(){
+    add_meta_box('hero','Hero Name','meta_box_html','movies');
 }
 
 function meta_box_html($post){ 
 ?>
-<label for="hero-name"> Hero Name </label>
-<input type="text" name="hero-name" value="<?php echo get_post_meta( get_the_ID(),'hero_name',true);  ?>">
-<br>
-<br>	
-<label for="heroine-name"> Heroine Name </label>
-<input type="text" name="heroine-name" value="<?php echo get_post_meta( get_the_ID(),'heroine_name',true);  ?>">
+    <label for="hero-name"> Hero Name </label>
+    <input type="text" name="hero-name" value="<?php echo get_post_meta( get_the_ID(),'hero_name',true);  ?>">
+    <br>
+    <br>	
+    <label for="heroine-name"> Heroine Name </label>
+    <input type="text" name="heroine-name" value="<?php echo get_post_meta( get_the_ID(),'heroine_name',true);  ?>">
 
 <?php
 }
@@ -100,28 +97,32 @@ delete_post_meta(id,key,value)
 update_post_meta(id,key,value,previous_value)
 get_post_meta( int $post_id, string $key = '', bool $single = false )
 
-/*display single or template page*/
-echo "Hero Name :";  echo "&nbsp;"; echo get_post_meta( get_the_ID(),'hero_name',true);  echo "<br>";
-echo "Heroine Name :";   echo "&nbsp;"; echo get_post_meta( get_the_ID(),'heroine_name',true);   echo "<br>";
+    /*display single or template page*/
+        echo "Hero Name :";  echo "&nbsp;"; echo get_post_meta( get_the_ID(),'hero_name',true);  echo "<br>";
+        echo "Heroine Name :";   echo "&nbsp;"; echo get_post_meta( get_the_ID(),'heroine_name',true);   echo "<br>";
+?>
+<!-- 😀 Create Custom Post Meta -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-
-
-
-/* This theme uses wp_nav_menu() in two locations.  */
+<!-- 😀 Menu Location -->
 Navigation menu 
 Reg_nav_menu
 nav_nav_menu(theme_location->’second’);
 
-(function.php)register_nav_menus( array(  
-  'first' => __( 'Primary Navigation', 'storefront' ),  
-  'second' => __('Secondary Navigation', 'storefront')  
-) );
+/*(function.php)*/
+    register_nav_menus( array(  
+      'first' => __( 'Primary Navigation', 'storefront' ),  
+      'second' => __('Secondary Navigation', 'storefront')  
+    ) );
 
-(footer.php)<div class="bottomMenu">
-              <?php wp_nav_menu( array( 'theme_location' => 'second' ) ); ?>  
+/*(footer.php)*/
+    <div class="bottomMenu">
+        <?php wp_nav_menu( array( 'theme_location' => 'second' ) ); ?>  
     </div>
-    
+<!-- 😀 Menu Location -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
+
 
 /*Add a Custom Sidebar to a WordPress Theme*/
 (function.php)
