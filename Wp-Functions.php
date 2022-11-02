@@ -5,7 +5,7 @@ Test Functions
 Image gallery :- Fancybox js
 Wordpress Contact Form 7 - Safest version 5.3.2(cf7 redirect issue solved this version) 
 
-
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
 <!-- 😀 Htaccess redirect -->
 <IfModule mod_rewrite.c>
 RewriteEngine On
@@ -27,6 +27,7 @@ RewriteRule ^(.*) http://adelaidehillsskiphire.com.au/$1  [QSA,L,R=301]
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
 <!-- 😀 Shortcode -->
 <?php 
 function movie_shortcode(){
@@ -40,45 +41,37 @@ function movie_shortcode(){
 	$query = new WP_Query($args);
     if($query->have_posts()) :
         while($query->have_posts()) :
-            $query->the_post() ;
-                  
+        $query->the_post();          
         $result .= '<div class="movie-item">';
         $result .= '<div class="movie-name">' .  get_the_title() . '</a></div>';
         $result .= '<div class="movie-desc">' . get_the_content() . '</div>'; 
         $result .= '<div class="movie-desc"><label>Hero Name : </label> ' . get_post_meta( get_the_ID(),'hero_name',true) . '</div>'; 
         $result .= '<div class="movie-desc"><label>Heroine Name : </label> ' . get_post_meta( get_the_ID(),'heroine_name',true) . '</div>';
         $result .= '</div>';
- 
         endwhile;
- 
         wp_reset_postdata();
- 
     endif;    
- 
     return $result;            
 }
-
 add_shortcode('movies','movie_shortcode'); ?>
 <!-- 😀 Shortcode -->
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
 <!-- 😀 Create Custom Post Meta -->
 <?php 
 add_action( 'add_meta_boxes', 'create_metabox' );
 function create_metabox(){
     add_meta_box('hero','Hero Name','meta_box_html','movies');
 }
-
-function meta_box_html($post){ 
-?>
+function meta_box_html($post){ ?>
     <label for="hero-name"> Hero Name </label>
     <input type="text" name="hero-name" value="<?php echo get_post_meta( get_the_ID(),'hero_name',true);  ?>">
     <br>
     <br>	
     <label for="heroine-name"> Heroine Name </label>
     <input type="text" name="heroine-name" value="<?php echo get_post_meta( get_the_ID(),'heroine_name',true);  ?>">
-
 <?php
 }
 function wporg_save_postdata( $post_id ) {
@@ -91,7 +84,7 @@ function wporg_save_postdata( $post_id ) {
 }
 add_action( 'save_post', 'wporg_save_postdata' );
 
-
+/*Function parameter*/
 add_post_meta(id,title,callback,screen, context, priority)
 delete_post_meta(id,key,value)
 update_post_meta(id,key,value,previous_value)
@@ -105,27 +98,10 @@ get_post_meta( int $post_id, string $key = '', bool $single = false )
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-<!-- 😀 Menu Location -->
-Navigation menu 
-Reg_nav_menu
-nav_nav_menu(theme_location->’second’);
-
-/*(function.php)*/
-    register_nav_menus( array(  
-      'first' => __( 'Primary Navigation', 'storefront' ),  
-      'second' => __('Secondary Navigation', 'storefront')  
-    ) );
-
-/*(footer.php)*/
-    <div class="bottomMenu">
-        <?php wp_nav_menu( array( 'theme_location' => 'second' ) ); ?>  
-    </div>
-<!-- 😀 Menu Location -->
-<!----------------------------------------------------------- End ----------------------------------------------------------->
-
-
-/*Add a Custom Sidebar to a WordPress Theme*/
-(function.php)
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Custom Sidebar -->
+<?php 
+/*** Function file ***/
 function my_custom_sidebar() {
     register_sidebar(
         array (
@@ -141,19 +117,19 @@ function my_custom_sidebar() {
 }
 add_action( 'widgets_init', 'my_custom_sidebar' );
 
-(custom Template)
-<?php if ( is_active_sidebar( 'custom-side-bar' ) ) : ?>
-    <?php dynamic_sidebar( 'custom-side-bar' ); ?>
-<?php endif; ?>
+/*** Custom Template/File ***/
+if ( is_active_sidebar( 'custom-side-bar' ) ) {
+    dynamic_sidebar( 'custom-side-bar' );
+} ?>
+<!-- 😀 Custom Sidebar -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-/*Custom Post Type */
-
-// Our custom post type function
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Custom Post Type -->
+<?php
 function create_posttype() {
- 
     register_post_type( 'jobs',
-    // CPT Options
         array(
             'labels' => array(
                 'name' => __( 'Jobs' ),
@@ -170,19 +146,11 @@ function create_posttype() {
         )
     );
 }
-// Hooking up our function to theme setup
 add_action( 'init', 'create_posttype' );
-//hook into the init action and call create_book_taxonomies when it fires
- 
 add_action( 'init', 'create_subjects_hierarchical_taxonomy', 0 );
  
-//create a custom taxonomy name it subjects for your posts
- 
 function create_subjects_hierarchical_taxonomy() {
- 
 // Add new taxonomy, make it hierarchical like categories
-//first do the translations part for GUI
- 
   $labels = array(
     'name' => _x( 'Subjects', 'taxonomy general name' ),
     'singular_name' => _x( 'Subject', 'taxonomy singular name' ),
@@ -207,7 +175,6 @@ function create_subjects_hierarchical_taxonomy() {
     'query_var' => true,
     'rewrite' => array( 'slug' => 'subject' ),
   ));
- 
 }
 add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
  
@@ -215,7 +182,9 @@ function add_my_post_types_to_query( $query ) {
     if ( is_home() && $query->is_main_query() )
         $query->set( 'post_type', array( 'post', 'jobs' ) );
     return $query;
-} 	
+}?>
+<!-- 😀 Custom Post Type -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 1.	/* load More Post with ajax post and cpt */(Custom Template)
 
