@@ -574,17 +574,14 @@ jQuery(document).ready(function () {
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-
-Header woocomerce cart counter 
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Header woocomerce cart counter -->
 <div class="cart-item">
-        <?php
-            $items_count = WC()->cart->get_cart_contents_count(); 
-            ?>
-        <div id="mini-cart-count"><i class="fa fa-shopping-cart"></i><?php echo $items_count ? $items_count : '0'; ?>
-        </div>
-    </div>
+    <?php $items_count = WC()->cart->get_cart_contents_count(); ?>
+    <div id="mini-cart-count"><i class="fa fa-shopping-cart"></i><?php echo $items_count ? $items_count : '0'; ?></div>
+</div>
 
-//hushhydro.com.au
+<!-- hushhydro.com.au -->
 <a href="<?php echo wc_get_cart_url(); ?>">
     <span>My Cart</span>
     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -592,7 +589,8 @@ Header woocomerce cart counter
     </span>
 </a>
 
-//click add to cart then update wc cart count
+<!-- click add to cart then update wc cart count -->
+<?php 
 add_filter( 'woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_total');
 function wc_refresh_mini_cart_total($fragments){
     ob_start();
@@ -602,10 +600,14 @@ function wc_refresh_mini_cart_total($fragments){
     <?php
         $fragments['.cart_count'] = ob_get_clean();
     return $fragments;
-}
+}?>
+<!-- 😀 Header woocomerce cart counter -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-/*Woocom product in add taxonomy*/
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Woocomerce Product add Taxonomy -->
+<?php
 function ess_custom_taxonomy_Item()  {
 $labels = array(
     'name'                       => 'Brands',
@@ -634,9 +636,14 @@ $args = array(
 );
 register_taxonomy( 'brand', 'product', $args );
 }    
-add_action( 'init', 'ess_custom_taxonomy_item', 0 );
+add_action( 'init', 'ess_custom_taxonomy_item', 0 );?>
+<!-- 😀 Woocomerce Product add Taxonomy -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
-/*******  set redirect to disable category pages   *******/
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Set redirect to disable category pages -->
+<?php 
 add_action('template_redirect', 'wpse69948_archive_disabler');
 function wpse69948_archive_disabler()
 {
@@ -646,10 +653,15 @@ function wpse69948_archive_disabler()
     if(is_archive('project-category')){
         wp_redirect( home_url('/projects/') );
     }
-}
+}?>
+<!-- 😀 Set redirect to disable category pages -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
-/*******  smooth scroll jQuery   *******/
-<script> port,western,northmelbourneroofing 
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Smooth scroll jQuery -->
+<!-- port,western,northmelbourneroofing  -->
+<script> 
     jQuery(".guaranteemenu a").on('click', function(event) {
     let href = location.href; // find with href current url(Path)
     let origin = location.origin;
@@ -667,10 +679,10 @@ function wpse69948_archive_disabler()
     } 
    });
 </script>
-//Purchasing solution on load direct section reach
+
+<!-- Purchasing solution on load direct section reach -->
 <script>
-jQuery(document).on('click', '.second ul li.partners_menu a', function() { 
-    // target element id 
+jQuery(document).on('click', '.second ul li.partners_menu a', function() {  
     var id = jQuery(this).attr('href'); 
     id = id.replace("/our-supply-partners/", "");    
     var $id = jQuery(id);  
@@ -704,33 +716,34 @@ jQuery(window).on('load',function(){
 });
 </script>
 
-//veracityfinance.com.au
+<!-- veracityfinance.com.au -->
+<script type="text/javascript">
 jQuery(document).ready(function() { 
     jQuery(document).on('click', 'a.approved', function(e) { 
         var id = jQuery(this).attr('href');  
         var mainid = id.replace("https://veracityfinancial.com.au/contact-us/", "")
         console.log(mainid);
-        // target element 
         var $id = jQuery(mainid); 
         if ($id.length === 0) { 
             return; 
         } 
-        //console.log($id); 
-        // prevent standard hash navigation (avoid blinking in IE) 
         e.preventDefault(); 
-        // top position relative to the document 
         var pos = $id.offset().top-150; 
-        // animated top scrolling 
         jQuery('body, html').animate({ 
             scrollTop: pos 
         }, 2000); 
     }); 
 });
+</script>
+<!-- 😀 Smooth scroll jQuery -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-
-(ACS Tooltip https://www.australiancarsubscriptions.com.au/car/gl-navigator/)
-//tooltip for Disclaimer
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Tooltip -->
+<!-- ACS Tooltip https://www.australiancarsubscriptions.com.au/car/gl-navigator/ -->
+<!-- tooltip for Disclaimer -->
+<script type="text/javascript">
 jQuery(".dis_title_d1").hover(
   function () {
     jQuery(this).parent().parent().find(".dis_tooltip_d1").addClass("active");
@@ -756,6 +769,11 @@ jQuery(".dis_title_d2").hover(
       .removeClass("active");
   }
 );
+</script>
+<!-- tooltip for Disclaimer -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
+
+
 /*get-the-children-of-the-parent-category*/
 $term = get_queried_object();
 $childcat = get_terms( $term->taxonomy, array(
