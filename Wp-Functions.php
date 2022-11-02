@@ -1,11 +1,6 @@
 /************/
 Test Functions
 /************/
-<style type="text/css">
-.title{
-    font-size: 15px;
-}
-</style>
 
 main content
 Image gallery :- Fancybox js
@@ -37,7 +32,7 @@ RewriteRule ^(.*) http://adelaidehillsskiphire.com.au/$1  [QSA,L,R=301]
 
 
 
-<div class="title">Shortcode</div>/*shortcode*/
+/*shortcode*/
 
 function movie_shortcode(){
 
