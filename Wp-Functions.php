@@ -496,7 +496,6 @@ var formID = jQuery(' .wpcf7').attr("id");
 <!-- One Page multiple form each function is used --> 
 <script>
 jQuery(document).ready(function () {
-    // [START] email_extend
     jQuery.validator.addMethod(
         "email_extend",
         function (value, element) {
@@ -774,11 +773,14 @@ jQuery(".dis_title_d2").hover(
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-/*get-the-children-of-the-parent-category*/
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Get the Children category from parent category -->
+<?php
 $term = get_queried_object();
-$childcat = get_terms( $term->taxonomy, array(
-    'parent'    => $term->term_id,
-    'hide_empty' => false
+$childcat = get_terms( 
+    $term->taxonomy, array(
+        'parent'    => $term->term_id,
+        'hide_empty' => false
 ) );
 if ( $childcat ) { ?>
         <section class="sec_spacing">
@@ -804,33 +806,29 @@ if ( $childcat ) { ?>
             </div>
             </div>
         </section>        
-<?php } 
+<?php } ?>
+<!-- 😀 Get the Children category from parent category -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
-//woocom shop page add body class-bloominhydro
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Woocomerce shop page add class -->
+<?php 
 add_filter( 'body_class', 'woo_shop_class' );
-// Add WooCommerce Shop Page CSS Class
 function woo_shop_class( $classes ) {
   if ( is_shop() )  // Set conditional
     $classes[] = 'shop-by-cat-page'; // Add Class
 return $classes;
-}
+}?>
+<!-- 😀 Woocomerce shop page add class -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-
-
-
-Only shop page add class
-add_filter( 'body_class', 'woo_shop_class' );
-// Add WooCommerce Shop Page CSS Class
-function woo_shop_class( $classes ) {
-  if ( is_shop() )  // Set conditional
-    $classes[] = 'shop-by-cat-page'; // Add Class
-return $classes;
-}
-
-Back to Top
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Back to top smooth scroll -->
 <a id="back-to-top" class="back-to-top" href="#">
     <span class="back-to-top-icon">   
+    <!-- any icon or text -->
     <?php superfood_elated_icon_collections()->getBackToTopIcon('font_awesome');?>
     </span>
 </a>
@@ -849,14 +847,22 @@ btn.on('click', function(e) {
   jQuery('html, body').animate({scrollTop:0}, '100');
 });
 </script>
+<!-- 😀 Back to top smooth scroll -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
-Right click disable
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Right click disable -->
 <script type = "text/javascript">
-//right click disable
 jQuery(document).bind('contextmenu', function (e) {
   e.preventDefault();
 });
 </script>
+<!-- 😀 Right click disable -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
+
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
 
 //Load More Post Button Hide
 
