@@ -1152,3 +1152,132 @@ function search_result(){
 <!-- 😀 Dream Court Tabbing And Our Wokr Page -->
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Dynamic Tabbing structure car detailing nz -->
+<!-- script & css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script type="text/javascript">
+jQuery(document) .ready(function(){
+    var li =  jQuery(".owl-item li");
+        jQuery(".owl-item li").click(function(){
+        li.removeClass('active');
+    });
+});
+</script>
+
+<!-- list out tab category name  -->
+<?php
+add_shortcode('car_tab_service', 'car_tab_service_fun');
+function car_tab_service_fun() {
+ob_start();
+?>
+<ul class="nav nav-tabs">
+    <div class="owl_1 owl-carousel owl-theme">
+        <?php
+        $i = 0;
+        $args = array(
+            'post_type' => 'plan', 
+            'orderby' => 'menu_order',
+            'order' => 'ASC',        
+            'post_status' => 'publish',
+            'posts_per_page' => -1
+        ); 
+        $the_query = new WP_Query($args);
+        while ($the_query->have_posts()) : $the_query->the_post(); 
+        $id = get_the_ID(); 
+        ?>
+        <div class="item">
+            <li class="<?php if($i == 0){ echo 'active'; } ?>">
+                <a data-toggle="tab" href="#tab<?php echo get_the_id(); ?>">
+                    <img src="<?php echo get_field('image',$id); ?>">
+                    <div class="title"><?php echo get_the_title(); ?></div>
+                </a>
+            </li>
+        </div>
+        <?php $i++; endwhile; ?>
+    </div>
+</ul>
+
+<!-- list out active tabbing data  -->
+<div class="tab-content">
+    <?php
+    $p = 0;
+    $args = array(
+        'post_type' => 'plan',    
+        'orderby' => 'menu_order',
+        'order' => 'ASC',        
+        'post_status' => 'publish',
+        'posts_per_page' => -1
+    ); 
+    $the_query = new WP_Query($args);
+    while ($the_query->have_posts()) : $the_query->the_post(); 
+    $id = get_the_ID(); 
+    ?>
+    <div id="tab<?php echo get_the_id(); ?>" class="tab-pane row fade in <?php if($p == 0){ echo 'active'; } ?>">
+        <div class="owl_2 owl-carousel">
+            <?php
+            $c=1;
+            while( have_rows('plan_details',$id) ): the_row(); 
+            $plan_title = get_sub_field('plan_title',$id);
+            $price = get_sub_field('price',$id);
+            $button_text = get_sub_field('button_text',$id);
+            $button_url = get_sub_field('button_url',$id);
+
+            if(is_user_logged_in()){
+            $pass_product_id = get_sub_field('pass_product_id_dealership',$id);
+            }
+            if(!is_user_logged_in()){
+            $pass_product_id = get_sub_field('pass_product_id',$id);
+            }
+            ?>
+            <div class="plan_details">
+                <div class="plan_details-inner">
+                    <div class="pat1">
+                        <h3><?php echo $plan_title; ?></h3>
+                        <div class="price"><span>$</span><?php echo $price; ?></div>
+                    </div>
+                    <div class="pat2">
+                        <div class="accordian_dtls">
+                            <div class="panla-body">
+                                <ul>
+                                    <?php
+                                while( have_rows('list_of_this_features',$id) ): the_row(); 
+                                $list_item = get_sub_field('list_item',$id);
+                                ?>
+                                    <li><i class="fa fa-check" aria-hidden="true"></i> <?php echo $list_item; ?></li>
+                                    <?php endwhile; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pat3">
+                        <div class="btn1 button">
+                            <a href="/services">See all inclusions<img
+                                    src="<?php echo home_url(); ?>/wp-content/uploads/2019/06/image_2022_07_01T05_28_24_725Z.png"
+                                    class="img_fluid"></a>
+                        </div>
+                        <div class="btn2 button">
+                            <a href="<?php echo $button_url; ?>"><?php echo $button_text; ?>
+                                <img src="<?php echo home_url(); ?>/wp-content/uploads/2019/06/image_2022_07_01T05_28_24_725Z.png"
+                                    class="img_fluid">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php $c++; endwhile; ?>
+        </div>
+    </div>
+    <?php $p++; endwhile; ?>
+</div>
+<?php
+$return = ob_get_clean();
+return $return;
+}?>
+<!-- 😀 Dynamic Tabbing structure car detailing nz -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
+
+
