@@ -1281,3 +1281,44 @@ return $return;
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Popup Fancybox -->
+
+<!-- Head:- -->
+<link rel='stylesheet' id='fancybox.css-css'  href='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css?ver=6.0.2' type='text/css' media='all' />
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js?ver=6.0.2' id='sage/fancybox.js-js'></script>
+
+<!-- Code:- -->
+<div class="car-list-row">
+    <div class="car-image">
+        <a class="image-popup-vertical-fit" href="<?php echo $car_image; ?>" data-fancybox="gallery-images">
+            <img src="<?php echo $car_image; ?>">
+        </a>
+    </div>
+    <div class="car-cat"><?php echo $car_cat; ?></div>
+    <div class="car-title"><?php echo $car_title; ?></div>    
+</div>
+
+<!-- Script:- -->
+<script type="text/javascript">
+jQuery(document).ready(function () {
+    if (jQuery(".car-image")) {
+        jQuery("[data-fancybox='gallery-images']").fancybox({
+            loop: true,
+            buttons: [
+                "zoom",
+                "share",
+                "slideShow",
+                "fullScreen",
+                "download",
+                "thumbs",
+                "close"
+            ],
+            "animationEffect": "zoom-in-out"
+        });
+    }
+});
+</script>
+<!-- 😀 Popup Fancybox -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
+
