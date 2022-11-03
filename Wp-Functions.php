@@ -863,9 +863,9 @@ jQuery(document).bind('contextmenu', function (e) {
 
 
 <!---------------------------------------------------------- Start ---------------------------------------------------------->
-
-//Load More Post Button Hide
-
+<!-- 😀 Load more post + Button hide -->
+<!-- STEP - 1 -->
+<?php
 /*******single/shortcode/listing page*******/
 add_action('genesis_loop', 'my_custom_loop');
 function my_custom_loop() {
@@ -925,7 +925,6 @@ function my_custom_loop() {
                         </a>
                     </div>
                 </div> 
-                <?php /*?><div class="bloglist_content"><?php echo $short_content; ?></div><?php */?>
                 <div class="cat-name">
                     <?php 
                         $cats = get_the_category( get_the_ID() );
@@ -934,12 +933,8 @@ function my_custom_loop() {
                         }
                     ?>
                 </div>
-                <div class="author">
-                    <?php /*$authorname = get_the_author_meta('display_name', $author_id); 
-                    echo $authorname;*/?>
-                </div>
                 <div class="bloglist_link btn-style-2">
-                    <a href="<?php  the_permalink(); ?>" title="Read More" class="bloglist_readmore vc_btn3">Read more</a>
+                    <a href="<?php the_permalink(); ?>" title="Read More" class="bloglist_readmore vc_btn3">Read more</a>
                 </div>
             </div>
         </div>
@@ -952,12 +947,11 @@ function my_custom_loop() {
      <?php else: ?>
         <p class="no-post-data"><?php _e('Sorry, no posts matched your criteria.'); ?></p>
     <?php endif; ?>
-<?php 
-}
+<?php } ?>
 
-1.2 script ajax
-</script>
-/********* Loadmore Blog Section Start *********/
+<!-- STEP - 2 -->
+<!-- Script Ajax Load more -->
+<?php
 add_action( 'wp_footer', 'my_action_javascript' ); 
 function my_action_javascript() { ?>
     <script type="text/javascript">
@@ -1003,28 +997,27 @@ function my_action() {
 $the_query = new WP_Query( $query_args ); 
      if ( $the_query->have_posts() ) : 
         $acount = 1;
-         while ( $the_query->have_posts() ) : $the_query->the_post(); 
+         while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 	<h2><li><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></li></h2>
-	//copy of while inner code
+	<!-- copy of while inner code -->
           <?php $acount++; endwhile; 
          wp_reset_postdata(); 
      else : ?>
         <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
     <?php endif; 
 wp_die(); 
-}
-/********* Loadmore Blog Section End *********/
+}?>
+<!-- 😀 Load more post + Button hide -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
 
-
-DREAM COURT TABBING AND OUR WORK PAGE 
-
-Ourwork.php
-
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Dream Court Tabbing And Our Wokr Page -->
 <?php
 /* Template Name: Our Works **/
 get_header();
 ?>
+<!-- list out main name with filter like category name,  -->
 <div class="ourwork_list_filter row page_or_work">
 	<div class="col-md-12 wrap">
 		<div class="Filter_DV">
@@ -1034,11 +1027,8 @@ get_header();
 				</li>
 				<?php
 				$terms = get_terms(array(
-
 					'taxonomy' => 'ourwork_category',
-
 					'hide_empty' => false,
-
 				));
 				foreach ($terms as $cat) {
 				?>
@@ -1053,6 +1043,7 @@ get_header();
 	</div>
 </div>
 
+<!-- show content images. short content, featured image etc.. -->
 <div class="ourwork_list page_or_work">
 	<div class="ourwork-main-blog">
 		<div class="result_response ourwork-main row">
@@ -1067,16 +1058,16 @@ get_header();
 			foreach ($posts as $post) {
 				$feature_image =  wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
 			?>
-				<div class="col-md-4">
-					<div class="post-box" style="background-image: url('<?php echo $feature_image[0] ?>')">
-						<div class="hover_div">
-							<h4 class="ourwork-title"><?php echo $post->post_title ?></h4>
-							<div class="hover_btn btn_style1">
-								<a class="vc_btn3" href="<?php echo get_permalink($post->ID); ?>">View Project</a>
-							</div>
+			<div class="col-md-4">
+				<div class="post-box" style="background-image: url('<?php echo $feature_image[0] ?>')">
+					<div class="hover_div">
+						<h4 class="ourwork-title"><?php echo $post->post_title ?></h4>
+						<div class="hover_btn btn_style1">
+							<a class="vc_btn3" href="<?php echo get_permalink($post->ID); ?>">View Project</a>
 						</div>
 					</div>
 				</div>
+			</div>
 			<?php
 			}
 			?>
@@ -1084,16 +1075,7 @@ get_header();
 	</div>
 </div>
 
-<div class="content">
-	<?php
-	$content = the_content(get_the_ID());
-	$content = preg_replace("/<img[^>]+\>/i", "", $content);
-	$content = apply_filters('the_content', $content);
-	$content = str_replace(']]>', ']]>', $content);
-	$content = apply_filters('the_content', $content);
-	?>
-</div>
-
+<!-- script for onclick active class add ajax call -->
 <script type="text/javascript">
 	jQuery(document).on('click', "li.filter_li", function() {
 		jQuery(document).find('.Filter_DV ul li').each(function() {
@@ -1119,16 +1101,14 @@ get_header();
 		return false;
 	});
 </script>
+<?php get_footer(); ?>
 
-<?php
-get_footer();
-
-Function.php
-
+<!-- Step - 2 -->
+<!-- Function.php -->
+<?php 
 add_action('wp_ajax_search_result', 'search_result');
 add_action('wp_ajax_nopriv_search_result', 'search_result');
 function search_result(){
-
     if ($_POST['cat_id'] == 0) {
         $args = array(
           'post_type' => 'ourworks',
@@ -1144,7 +1124,6 @@ function search_result(){
               'terms' => $_POST['cat_id'],
           )
         );  
-
         $args = array(
             'post_type' => 'ourworks',
             'post_status' => 'publish',
@@ -1153,11 +1132,9 @@ function search_result(){
             'tax_query' => $tax_array,           
         );  
     }
-
     $posts = get_posts($args);   
     foreach ($posts as $post){
         $feature_image =  wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' ); ?>
-
         <div class="col-md-4">
             <div class="post-box" style="background-image: url('<?php echo $feature_image[0] ?>')">
             <div class="hover_div">
@@ -1167,13 +1144,11 @@ function search_result(){
                 </div>
             </div>
         </div> 
-<?php       
-    }
-
+    <?php }
     wp_reset_postdata();
-
     die;
+} ?>
 
-}
-
+<!-- 😀 Dream Court Tabbing And Our Wokr Page -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
 
