@@ -1319,3 +1319,72 @@ jQuery(document).ready(function () {
 <!-- 😀 Popup Fancybox -->
 <!----------------------------------------------------------- End ----------------------------------------------------------->
 
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Social Share icon -->
+<ul class="social_share">
+        <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $url ?>" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');return false;"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+        <li><a href="https://twitter.com/intent/tweet?url=<?php echo $url ?>&text=<?php echo $name ?>" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');return false;"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+        <li><a href="https://pinterest.com/pin/create/button/?url=<?php echo $url ?>&media=<?php echo $image ?>&description=<?php echo $name ?>" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');return false;"><i class="fa fa-pinterest-square" aria-hidden="true"></i></a></li>
+        <li><a href="mailto:webapps@zibdigital.com.au?&subject=<?php echo $name ?>&cc=&bcc=&body=<?php echo $url ?>" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');return false;"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url ?>" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');return false;"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
+        <li><a href="https://api.whatsapp.com/send?text=<?php echo $name ?> <?php echo $url?>" onclick="window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');return false;"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+    </ul>
+<!-- 😀 Social Share icon -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
+
+
+<!---------------------------------------------------------- Start ---------------------------------------------------------->
+<!-- 😀 Owl Carousel slider with ACF field -->
+<?php
+add_shortcode( 'home_footer_slider', 'footer_slider_shortcode' );
+function footer_slider_shortcode() {
+if(have_rows('footer_slider')) : ?>
+    <div class="homefooter_slider desk_slider">
+        <div class="owl-carousel owl-theme">
+            <?php while( have_rows('footer_slider') ) : the_row(); ?>
+                <?php 
+                $slider_image = get_sub_field('slider_image');
+                ?>
+                <?php if($slider_image['url']) { ?>
+                    <div class="item">
+                        <div class="sl_image"><img src="<?php echo $slider_image['url']; ?>" alt="<?php echo $slider_image['alt'] ?>" />
+                        </div>
+                        
+                    </div>
+                <?php } ?>
+            <?php endwhile; ?>
+        </div>
+    </div>
+    <!-- </div> -->
+<?php endif; 
+} ?>
+
+<script type="text/javascript">
+jQuery('.homemain_slider .owl-carousel').owlCarousel({
+    loop: true,
+    margin: 0,
+    nav: true,
+    dots: true,
+    navText: [
+        "<i class='fa fa-caret-left'></i>",
+        "<i class='fa fa-caret-right'></i>"
+    ],
+    autoplay: true,
+    autoplayHoverPause: true,
+    responsive: {
+        0: {
+            items: 1
+        },
+        600: {
+            items: 1
+        },
+        1200: {
+            items: 1
+        }
+    }
+});
+</script>
+
+<!-- 😀 Owl Carousel slider with ACF field -->
+<!----------------------------------------------------------- End ----------------------------------------------------------->
